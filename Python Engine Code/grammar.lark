@@ -1,0 +1,49 @@
+%import common.CNAME    -> IDENT
+%import common.INT      -> INT
+%import common.ESCAPED_STRING -> STRING
+%import common.WS
+%ignore WS
+
+start: statement*
+
+statement: say_stmt
+         | setvar_stmt
+         | roll_stmt
+         | choose_stmt
+         | label_stmt
+         | jump_stmt
+         | changescene_stmt
+         | callscene_stmt
+         | input_stmt
+         | return_stmt
+         | showimage_stmt ";"      
+         | hideimage_stmt ";"      
+         | playbgm_stmt ";"
+         | stopbgm_stmt ";"        
+         | playsfx_stmt ";"        
+         | playvoice_stmt ";"      
+         | stopvoice_stmt ";"  
+
+say_stmt:      "say" ":" STRING param* ";"
+setvar_stmt:   "setVar" ":" IDENT "=" EXPR ";"
+input_stmt:    "input" ":" IDENT param* ";"
+roll_stmt: "roll" ":" EXPR ("-to" "=" IDENT)? ";"
+choose_stmt:   "choose" ":" option ("|" option)* param* ";"
+option:        STRING ":" IDENT param*
+label_stmt:    "label" ":" IDENT ";"
+jump_stmt:     "jump" ":" IDENT ";"
+changescene_stmt: "changeScene" ":" IDENT ";"
+callscene_stmt:   "callScene" ":" IDENT ";"
+return_stmt:   "return" ";"
+
+showimage_stmt: "showImage" ":" STRING       
+hideimage_stmt: "hideImage"                   
+playbgm_stmt: "playBGM" ":" STRING param*     
+stopbgm_stmt: "stopBGM"                      
+playsfx_stmt: "playSFX" ":" STRING            
+playvoice_stmt: "playVoice" ":" STRING        
+stopvoice_stmt: "stopVoice"                   
+
+param: "-" IDENT "=" /[^\n|;]+/   
+      | "-" IDENT                 
+EXPR: /(\\.|[^-;]|-(?!to=))+/     

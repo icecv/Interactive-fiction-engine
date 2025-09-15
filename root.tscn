@@ -1,0 +1,325 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfoytnpr8n17b"]
+
+[ext_resource type="Script" uid="uid://bd3b6g6ndw3p2" path="res://GDScript.gd" id="1_glv2v"]
+
+[node name="Main" type="Node"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_glv2v")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundLayer" type="Control" parent="UI"]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundImage" type="TextureRect" parent="UI/BackgroundLayer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 6
+
+[node name="CharacterLayer" type="Control" parent="UI"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CharacterLeft" type="TextureRect" parent="UI/CharacterLayer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -300.0
+offset_right = 350.0
+offset_bottom = 300.0
+grow_vertical = 2
+stretch_mode = 4
+
+[node name="CharacterCenter" type="TextureRect" parent="UI/CharacterLayer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -300.0
+offset_right = 150.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 4
+
+[node name="CharacterRight" type="TextureRect" parent="UI/CharacterLayer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -300.0
+offset_right = -50.0
+offset_bottom = 300.0
+grow_horizontal = 0
+grow_vertical = 2
+stretch_mode = 4
+
+[node name="GameUI" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Spacer" type="Control" parent="UI/GameUI"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextDisplay" type="RichTextLabel" parent="UI/GameUI"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_offset_x = 1
+bbcode_enabled = true
+text = "Waiting for server connection..."
+
+[node name="ChoiceContainer" type="VBoxContainer" parent="UI/GameUI"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="InputContainer" type="HBoxContainer" parent="UI/GameUI"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="InputField" type="LineEdit" parent="UI/GameUI/InputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter text..."
+
+[node name="SubmitButton" type="Button" parent="UI/GameUI/InputContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Submit"
+
+[node name="NextButton" type="Button" parent="UI/GameUI"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Next"
+
+[node name="GlobalControls" type="Control" parent="UI"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveButton" type="Button" parent="UI/GlobalControls"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 16
+text = "Save"
+
+[node name="SaveMenu" type="Control" parent="UI"]
+visible = false
+z_index = 20
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveMenuBG" type="ColorRect" parent="UI/SaveMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="SavePanel" type="Panel" parent="UI/SaveMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SavePanelContent" type="VBoxContainer" parent="UI/SaveMenu/SavePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="SaveTitle" type="Label" parent="UI/SaveMenu/SavePanel/SavePanelContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Save Management"
+horizontal_alignment = 1
+
+[node name="SaveTabs" type="TabContainer" parent="UI/SaveMenu/SavePanel/SavePanelContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Save Game" type="Control" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="SaveSlotContainer" type="VBoxContainer" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Save Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="SaveSlotLabel" type="Label" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Save Game/SaveSlotContainer"]
+layout_mode = 2
+text = "Select save slot:"
+
+[node name="SaveSlotList" type="ItemList" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Save Game/SaveSlotContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SaveNameContainer" type="HBoxContainer" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Save Game/SaveSlotContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SaveNameLabel" type="Label" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Save Game/SaveSlotContainer/SaveNameContainer"]
+layout_mode = 2
+text = "Save name:"
+
+[node name="SaveNameInput" type="LineEdit" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Save Game/SaveSlotContainer/SaveNameContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter save name..."
+
+[node name="SaveConfirmButton" type="Button" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Save Game/SaveSlotContainer"]
+layout_mode = 2
+text = "Save Game"
+
+[node name="Load Game" type="Control" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="LoadSlotContainer" type="VBoxContainer" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Load Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="LoadSlotLabel" type="Label" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Load Game/LoadSlotContainer"]
+layout_mode = 2
+text = "Select save to load:"
+
+[node name="LoadSlotList" type="ItemList" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Load Game/LoadSlotContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LoadButtonContainer" type="HBoxContainer" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Load Game/LoadSlotContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LoadConfirmButton" type="Button" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveTabs/Load Game/LoadSlotContainer/LoadButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load Game"
+
+[node name="SaveMenuButtons" type="HBoxContainer" parent="UI/SaveMenu/SavePanel/SavePanelContent"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="QuickSaveButton" type="Button" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveMenuButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quick Save"
+
+[node name="QuickLoadButton" type="Button" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveMenuButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quick Load"
+
+[node name="ReturnToGameButton" type="Button" parent="UI/SaveMenu/SavePanel/SavePanelContent/SaveMenuButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Return to Game"
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="AudioManager"]
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="AudioManager"]
+
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="AudioManager"]
