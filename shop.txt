@@ -1,0 +1,45 @@
+showImage:"weapon_shop.jpg";
+playBGM:"shop_theme.mp3" -loop=true;
+
+say:"Welcome to the Adventurer's Equipment Shop!" -speaker="Shopkeeper";
+say:"You have {gold} gold coins. What would you like to buy?" -speaker="Shopkeeper";
+
+label:shop_menu;
+choose:
+  "Buy Steel Sword (30 gold)":buy_sword -enable={gold}>=30 |
+  "Buy Health Potion (15 gold)":buy_potion -enable={gold}>=15 |
+  "Buy Magic Scroll (25 gold)":buy_scroll -enable={gold}>=25 |
+  "Leave Shop":leave_shop
+;
+
+label:buy_sword;
+setVar:gold={gold}-30;
+setVar:strength={strength}+3;
+playSFX:"buy_item.mp3";
+say:"You purchased a sharp steel sword!" -speaker="Shopkeeper";
+say:"Strength increased by 3 points!" -speaker="System";
+say:"Strength: {strength}, Remaining Gold: {gold}" -speaker="System";
+jump:shop_menu;
+
+label:buy_potion;
+setVar:gold={gold}-15;
+setVar:health={health}+25;
+playSFX:"buy_item.mp3";
+say:"You purchased a health potion!" -speaker="Shopkeeper";
+say:"Health restored by 25 points!" -speaker="System";
+say:"Health: {health}, Remaining Gold: {gold}" -speaker="System";
+jump:shop_menu;
+
+label:buy_scroll;
+setVar:gold={gold}-25;
+setVar:magic={magic}+2;
+playSFX:"buy_item.mp3";
+say:"You purchased a magic scroll!" -speaker="Shopkeeper";
+say:"Magic power increased by 2 points!" -speaker="System";
+say:"Magic: {magic}, Remaining Gold: {gold}" -speaker="System";
+jump:shop_menu;
+
+label:leave_shop;
+say:"Thank you for your business! Have a great adventure!" -speaker="Shopkeeper";
+say:"You leave the shop..." -speaker="Narrator";
+return;

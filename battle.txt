@@ -1,0 +1,39 @@
+showImage:"battle_arena.jpg";
+playBGM:"battle_theme.mp3" -loop=true;
+
+say:"You enter the battle arena!" -speaker="Narrator";
+say:"A fierce monster appears before you!" -speaker="Narrator";
+
+playSFX:"fight.mp3";
+
+roll:1d20+{strength} -to=player_attack;
+roll:1d20+5 -to=monster_attack;
+
+say:"Your attack power: {player_attack}" -speaker="System";
+say:"Monster attack power: {monster_attack}" -speaker="System";
+
+choose:
+  "Victory!":battle_win -when={player_attack}>{monster_attack} |
+  "Defeat...":battle_lose -when={player_attack}<={monster_attack}
+;
+
+label:battle_win;
+setVar:gold={gold}+20;
+setVar:strength={strength}+1;
+playSFX:"victory.mp3";
+say:"Congratulations! You defeated the monster!" -speaker="Narrator";
+say:"You gained 20 gold and 1 strength point!" -speaker="System";
+say:"Gold: {gold}, Strength: {strength}" -speaker="System";
+jump:battle_end;
+
+label:battle_lose;
+setVar:health={health}-15;
+playSFX:"damage.mp3";
+say:"You were defeated by the monster..." -speaker="Narrator";
+say:"You lost 15 health points!" -speaker="System";
+say:"Current health: {health}" -speaker="System";
+jump:battle_end;
+
+label:battle_end;
+say:"Battle ended, returning to the guild..." -speaker="Narrator";
+return;

@@ -1,0 +1,89 @@
+showImage:"casino.jpg";
+playBGM:"casino_theme.mp3" -loop=true;
+
+say:"Welcome to the Lucky Casino!" -speaker="Dealer";
+say:"How are you feeling lucky today, {player_name}?" -speaker="Dealer";
+
+label:casino_menu;
+say:"You have {gold} gold coins to gamble with." -speaker="Dealer";
+
+choose:
+  "Play Dice Game (10 gold)":dice_game -when={gold}>=10 |
+  "Play Roulette (20 gold)":roulette_game -when={gold}>=20 |
+  "Leave Casino":leave_casino
+;
+
+label:dice_game;
+setVar:gold={gold}-10;
+say:"You bet 10 gold on the dice game!" -speaker="Dealer";
+
+roll:1d6 -to=player_dice;
+roll:1d6 -to=house_dice;
+
+say:"You rolled: {player_dice} points" -speaker="System";
+say:"House rolled: {house_dice} points" -speaker="System";
+
+choose:
+  "You won!":dice_win -when={player_dice}>{house_dice} |
+  "It's a tie!":dice_draw -when={player_dice}=={house_dice} |
+  "You lost...":dice_lose -when={player_dice}<{house_dice}
+;
+
+label:dice_win;
+setVar:gold={gold}+20;
+say:"Congratulations! You won 20 gold coins!" -speaker="Dealer";
+say:"Current gold: {gold}" -speaker="System";
+jump:casino_menu;
+
+label:dice_draw;
+setVar:gold={gold}+10;
+say:"It's a tie! Your bet is returned." -speaker="Dealer";
+say:"Current gold: {gold}" -speaker="System";
+jump:casino_menu;
+
+label:dice_lose;
+say:"Sorry, you lost this round..." -speaker="Dealer";
+say:"Current gold: {gold}" -speaker="System";
+jump:casino_menu;
+
+label:roulette_game;
+setVar:gold={gold}-20;
+say:"You bet 20 gold on roulette!" -speaker="Dealer";
+
+roll:1d10 -to=lucky_number;
+say:"The wheel landed on: {lucky_number}" -speaker="System";
+
+choose:
+  "JACKPOT!":roulette_jackpot -when={lucky_number}>=9 |
+  "Big Win!":roulette_win -when={lucky_number}>=6 |
+  "Small Prize":roulette_small -when={lucky_number}>=4 |
+  "No luck...":roulette_lose
+;
+
+label:roulette_jackpot;
+setVar:gold={gold}+100;
+say:"JACKPOT! You won 100 gold coins!" -speaker="Dealer";
+say:"Current gold: {gold}" -speaker="System";
+jump:casino_menu;
+
+label:roulette_win;
+setVar:gold={gold}+40;
+say:"Big win! You won 40 gold coins!" -speaker="Dealer";
+say:"Current gold: {gold}" -speaker="System";
+jump:casino_menu;
+
+label:roulette_small;
+setVar:gold={gold}+20;
+say:"Small prize! You won 20 gold coins!" -speaker="Dealer";
+say:"Current gold: {gold}" -speaker="System";
+jump:casino_menu;
+
+label:roulette_lose;
+say:"Sorry, no luck this time..." -speaker="Dealer";
+say:"Current gold: {gold}" -speaker="System";
+jump:casino_menu;
+
+label:leave_casino;
+say:"Thank you for playing! Come back anytime!" -speaker="Dealer";
+say:"You leave the casino..." -speaker="Narrator";
+return;

@@ -1,0 +1,50 @@
+showImage:"tavern.jpg";
+playBGM:"main_theme.mp3" -loop=true;
+
+setVar:health=100;
+setVar:strength=10;
+setVar:magic=8;
+setVar:gold=50;
+
+say:"Welcome to the Adventurer's Guild!" -speaker="Narrator";
+
+input:player_name -prompt="Please enter your character name: ";
+
+say:"Excellent, {player_name}! Get ready to begin your adventure!" -speaker="Guild Receptionist";
+say:"There are several places you can visit here." -speaker="Guild Receptionist";
+
+label:main_menu;
+say:"Hello, {player_name}! Where would you like to go?" -speaker="Guild Receptionist";
+say:"Current Status - Health: {health}, Strength: {strength}, Magic: {magic}, Gold: {gold}" -speaker="System";
+
+choose:
+  "Go to Battle Arena":battle_area |
+  "Visit Equipment Shop":shop_area |
+  "Go to casino":casino_area |
+  "Check Detailed Status":status_check
+;
+
+label:casino_area;
+say:"welcom";
+callScene:casino;
+jump:main_menu;
+
+label:battle_area;
+say:"You head to the dangerous battle arena..." -speaker="Narrator";
+callScene:battle;
+jump:main_menu;
+
+label:shop_area;
+say:"You arrive at the busy equipment shop..." -speaker="Narrator";
+callScene:shop;
+jump:main_menu;
+
+label:status_check;
+say:"=== Character Status ===" -speaker="System";
+say:"Character Name: {player_name}" -speaker="System";
+say:"Health Points: {health}" -speaker="System";
+say:"Strength: {strength}" -speaker="System";
+say:"Magic: {magic}" -speaker="System";
+say:"Gold: {gold}" -speaker="System";
+say:"Status check complete!" -speaker="System";
+jump:main_menu;
